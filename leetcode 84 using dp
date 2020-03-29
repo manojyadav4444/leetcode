@@ -1,0 +1,24 @@
+class Solution {
+    public int largestRectangleArea(int[] h) {
+        int ans = recur(h, 0, h.length-1);
+        return ans;
+    }
+    
+    public int recur(int []h, int start, int end){
+        if(start>end) return 0;
+        else{
+            int min = h[start];
+            int mini = start;
+            for(int i=start+1;i<=end;i++){
+                if(min>h[i]){
+                    min = h[i];
+                    mini = i;
+                }
+            }
+            int left = recur(h,start,mini-1);
+            int right = recur(h,mini+1,end);
+            int mid = h[mini]*(end-start+1);
+            return Math.max(Math.max(left,right), mid);
+        }
+    }
+}
