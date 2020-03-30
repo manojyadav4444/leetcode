@@ -1,0 +1,20 @@
+class Solution {
+    public int leastInterval(char[] t, int n) {
+        int count[] = new int[26];
+        for(char i : t){
+            count[i-'A']++;
+        }
+        Arrays.sort(count);
+        int max_val = count[25];
+        int idle_slots = (max_val-1)*n;
+        for(int i=24;i>=0;i--){
+            if(count[i]==max_val){
+                idle_slots -= max_val-1;
+                continue;
+            }
+            idle_slots -= count[i];
+        }
+        if(idle_slots>0) return (t.length+idle_slots);
+        else return t.length;
+    }
+}
