@@ -1,0 +1,18 @@
+class Solution {
+    public int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> minheap = new PriorityQueue<Integer>();
+        for(int i : stones){
+            minheap.add(-i);
+        }
+        while(minheap.size()>1){
+            int first = -minheap.remove();
+            int second = -minheap.remove();
+            if(first!=second){
+                int temp = first - second;
+                minheap.add(-temp);
+            }
+        }
+        if(minheap.isEmpty()) return 0;
+        else    return -minheap.remove();
+    }
+}
