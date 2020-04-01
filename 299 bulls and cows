@@ -1,0 +1,20 @@
+class Solution {
+    public String getHint(String a, String b) {
+        Map<Character, Integer> m1 = new HashMap<Character, Integer>() ;
+        Map<Character, Integer> m2 = new HashMap<Character, Integer>() ;
+        int bull = 0;
+        int cow = 0;
+        for(int i=0;i<a.length();i++){
+            if(a.charAt(i)==b.charAt(i)){
+                bull+=1;
+            }
+            m1.put(a.charAt(i), m1.getOrDefault(a.charAt(i),0)+1);
+            m2.put(b.charAt(i), m2.getOrDefault(b.charAt(i),0)+1);
+        }
+        for(char i : m1.keySet()){
+            if(m1.get(i) >= m2.getOrDefault(i,0)) cow+=m2.getOrDefault(i,0);
+            else cow+=m1.get(i);
+        }
+        return bull+"A"+(cow-bull)+"B";
+    }
+}
