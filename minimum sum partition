@@ -1,0 +1,54 @@
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) {
+		//code
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		while(t-->0){
+		    int n = in.nextInt();
+		    int a[] = new int[n];
+		    int s = 0; 
+		    for(int i=0;i<n;i++){
+		        a[i] = in.nextInt();
+		        s += a[i];
+		    }
+		    int dp[][] = new int[n+1][s+1];
+		    for(int temp[] : dp){
+		            Arrays.fill(temp,-1);
+		    }
+		    for(int i=s/2;i>=0;i--){
+		        int ans = recur(a,n,i,dp);
+		        if(ans==1){
+		            System.out.println(s-2*i);
+		            break;
+		        }
+		    }
+		}
+	}
+	public static int recur(int a[], int n, int s, int dp[][]){
+	    if(s==0) return 1;
+	    if(n==0) return 0;
+	    if(dp[n][s]!=-1){
+	        return dp[n][s];
+	    }
+	    if(a[n-1]<=s){
+	        int with = recur(a,n-1,s-a[n-1],dp);
+	        int without = recur(a,n-1,s,dp);
+	        if(with==1||without==1){
+	            return dp[n][s]=1;
+	        }
+	        else{
+	            return dp[n][s]=0;
+	        }
+	    }
+	    else{
+	        int without = recur(a,n-1,s,dp);
+	        return dp[n][s]=without;
+	    }
+	}
+}
