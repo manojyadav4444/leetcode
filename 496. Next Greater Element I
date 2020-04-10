@@ -1,0 +1,34 @@
+class Solution {
+    public int[] nextGreaterElement(int[] a, int[] b) {
+        Stack<Integer> s = new Stack<Integer>();
+        int ans[] = new int[b.length];
+        for(int i=b.length-1;i>=0;i--){
+            if(s.empty()){
+                ans[i]=-1;
+                s.push(b[i]);
+            }
+            else{
+                while(!s.empty() && s.peek()<=b[i]){
+                    s.pop();
+                }
+                if(s.empty()){
+                    ans[i] = -1;
+                    s.push(b[i]);
+                }
+                else{
+                    ans[i] = s.peek();
+                    s.push(b[i]);
+                }
+            }
+        }
+        Map<Integer, Integer> m = new HashMap<Integer, Integer>();
+        for(int i=0;i<b.length;i++){
+            m.put(b[i], ans[i]);
+        }
+        int temp[] = new int[a.length];
+        for(int i=0;i<a.length;i++){
+            temp[i] = m.get(a[i]);
+        }
+        return temp;
+    }
+}
