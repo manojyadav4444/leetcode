@@ -1,0 +1,80 @@
+class Solution {
+    public int maximalRectangle(char[][] m) {
+        if(m.length==0) return 0;
+        int [][]a = new int[m.length][m[0].length];
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<a[0].length;j++){
+                a[i][j] = m[i][j]-'0';
+            }
+        }
+        for(int i=0;i<a.length;i++){
+            for(int j=0;j<a[0].length;j++){
+                if(i!=0){
+                    if(a[i][j]!=0){
+                        a[i][j] += a[i-1][j];
+                    }
+                }
+            }
+        }
+        int maximum = Integer.MIN_VALUE;
+        for(int i=0;i<a.length;i++){
+            maximum = Math.max(maximum, mah(a[i]));
+        }
+        return maximum;
+    }
+    public int mah(int []a){
+        if(a.length==0) return 0;
+        Stack<Integer> s = new Stack<Integer>();
+        int l[] = new int[a.length];
+        for(int i=0;i<a.length;i++){
+            if(s.empty()){
+                l[i]=-1;
+                s.push(i);
+            }
+            else{
+                while(!s.empty() && a[s.peek()]>=a[i]){
+                    s.pop();
+                }
+                if(s.empty()){
+                    l[i]=-1;
+                    s.push(i);
+                }
+                else{
+                    l[i]=s.peek();
+                    s.push(i);
+                }
+            }
+        }
+        
+        
+        
+        s.clear();
+        int r[] = new int[a.length];
+        for(int i=a.length-1;i>=0;i--){
+            if(s.empty()){
+                r[i]=a.length;
+                s.push(i);
+            }
+            else{
+                while(!s.empty() && a[s.peek()]>=a[i]){
+                    s.pop();
+                }
+                if(s.empty()){
+                    r[i]=a.length;
+                    s.push(i);
+                }
+                else{
+                    r[i]=s.peek();
+                    s.push(i);
+                }
+            }
+        }
+        
+        int maximum = Integer.MIN_VALUE;
+        for(int i=0;i<a.length;i++){
+            int temp = a[i]*(r[i]-l[i]-1);
+            maximum = Math.max(maximum, temp);
+        }
+        return maximum;
+    }
+}
