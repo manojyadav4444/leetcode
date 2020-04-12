@@ -1,0 +1,30 @@
+/*package whatever //do not write package name here */
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+	public static void main (String[] args) {
+		//code
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		while(t-->0){
+		    int n = in.nextInt();
+		    int a[] = new int[n];
+		    for(int i=0;i<n;i++){
+		        a[i] = in.nextInt();
+		    }
+		    int dp[] = new int[a.length];
+		    Arrays.fill(dp,-1);
+		    int ans = Math.min(recur(a,n-1,dp), recur(a,n-2,dp));
+		    System.out.println(ans);
+		}
+	}
+	public static int recur(int a[], int n, int dp[]){
+	    if(n==0) return a[n];
+	    if(n<0) return 0;
+	    if(dp[n]!=-1) return dp[n];
+	    return dp[n]=Math.min((a[n]+recur(a,n-1,dp)), a[n]+recur(a,n-2,dp));
+	}
+}
