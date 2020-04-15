@@ -1,0 +1,23 @@
+class Solution {
+    public String stringShift(String s, int[][] a) {
+        int index = 0;
+        for(int i=0;i<a.length;i++){
+            if(a[i][0]==0){
+                index += a[i][1]%s.length();
+            }
+            else{
+                index -= a[i][1];
+                if(index<0){
+                    index = s.length()+index;
+                }
+            }
+        }
+        char[] ans = new char[s.length()];
+        int j=index;
+        for(int i=0;i<s.length();i++){
+            ans[i]=s.charAt(j%s.length());
+            j++;
+        }
+        return String.valueOf(ans);
+    }
+}
