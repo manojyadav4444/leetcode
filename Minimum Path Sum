@@ -1,0 +1,23 @@
+class Solution {
+    public int minPathSum(int[][] a) {
+        int n = a.length;
+        int m = a[0].length;
+        int dp[][] = new int[n][m];
+        for(int []temp : dp){
+            Arrays.fill(temp,-1);
+        }
+        int ans = recur(a,n-1,m-1,dp);
+        return ans;
+    }
+    public int recur(int [][]a,int n,int m,int [][]dp){
+        if(n==0 && m==0) return a[0][0];
+        if(dp[n][m]!=-1) return dp[n][m];
+        if(n==0){
+            return dp[n][m]=a[n][m]+recur(a,n,m-1,dp);
+        }
+        if(m==0){
+            return dp[n][m]=a[n][m]+recur(a,n-1,m,dp);
+        }
+        return dp[n][m]=Math.min(recur(a,n-1,m,dp),recur(a,n,m-1,dp)) + a[n][m];
+    }
+}
