@@ -1,0 +1,24 @@
+class Solution {
+    public int countCharacters(String[] words, String chars) {
+        HashMap<Character,Integer> m = new HashMap<Character,Integer>();
+        for(char i:chars.toCharArray()){
+            m.put(i,m.getOrDefault(i,0)+1);
+        }
+        int ans=0;
+        for(String temp:words){
+            HashMap<Character,Integer> a = new HashMap<Character,Integer>();
+            for(char i:temp.toCharArray()){
+                a.put(i,a.getOrDefault(i,0)+1);
+            }
+            boolean ok = true;
+            for(char i:a.keySet()){
+                if(m.getOrDefault(i,0) < a.get(i)){
+                    ok = false;
+                    break;
+                }
+            }
+            if(ok) ans+=temp.length();
+        }
+        return ans;
+    }
+}
