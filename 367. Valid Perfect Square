@@ -1,0 +1,15 @@
+class Solution {
+    public boolean isPerfectSquare(int n) {
+        if(n==1) return true;
+        int l = 0;
+        int r = n/2;
+        while(l<=r){
+            int m = l + (r-l)/2;
+            if((long)m*m==(long)n) return true;
+            if((long)m*m<(long)n) l=m+1;
+            else r=m-1;
+            System.out.println(m + " " + m*m);
+        }
+        return false;
+    }
+}
