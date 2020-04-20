@@ -1,0 +1,21 @@
+class Solution {
+    public int minDistance(String word1, String word2) {
+        char []a = word1.toCharArray();
+        char []b = word2.toCharArray();
+        int dp[][] = new int[a.length+1][b.length+1];
+        for(int []temp:dp){
+            Arrays.fill(temp,-1);
+        }
+        int ans = recur(a,b,a.length,b.length,dp);
+        return ans;
+    }
+    public int recur(char []a,char []b,int n,int m,int [][]dp){
+        if(m==0) return n;
+        if(n==0) return m;
+        if(dp[n][m]!=-1) return dp[n][m];
+        if(a[n-1]==b[m-1]){
+            return dp[n][m]=recur(a,b,n-1,m-1,dp);
+        }
+        return dp[n][m]=1+Math.min(Math.min(recur(a,b,n,m-1,dp),recur(a,b,n-1,m,dp)),recur(a,b,n-1,m-1,dp));
+    }
+}
