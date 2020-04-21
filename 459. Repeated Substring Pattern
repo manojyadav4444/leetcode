@@ -1,0 +1,17 @@
+class Solution {
+    public boolean repeatedSubstringPattern(String s) {
+        int n = s.length();
+        for(int i=n/2;i>0;i--){
+            if(n%i==0){
+                String x = s.substring(0,i);
+                StringBuilder temp = new StringBuilder();
+                int times = n/i;
+                for(int j=0;j<times;j++){
+                    temp.append(x);
+                }
+                if(temp.toString().equals(s)) return true;
+            }
+        }
+        return false;
+    }
+}
