@@ -1,0 +1,23 @@
+class Solution {
+    public int rangeBitwiseAnd(int m, int n) {
+        int ans = 0;
+        while(m>0 && n>0){
+            int msb_m = msb(m);
+            int msb_n = msb(n);
+            if(msb_m!=msb_n) return ans;
+            int temp = (int)Math.pow(2,msb_m);
+            ans += temp;
+            m -= Math.pow(2,msb_m);
+            n -= Math.pow(2,msb_m);
+        }
+        return ans;
+    }
+    public int msb(int n){
+        int ans = -1;
+        while(n>0){
+            n = n>>1;
+            ans++;
+        }
+        return ans;
+    }
+}
