@@ -1,0 +1,28 @@
+class Solution {
+    public String[] reorderLogFiles(String[] logs) {
+        Arrays.sort(logs, (log1, log2) -> {
+            String[] split1 = log1.split(" ", 2);
+            String[] split2 = log2.split(" ", 2);
+            if(!Character.isDigit(split1[1].charAt(0)) && !Character.isDigit(split2[1].charAt(0))){
+                int temp = split1[1].compareTo(split2[1]);
+                if(temp!=0){
+                    return temp;
+                }
+                else{
+                    return split1[0].compareTo(split2[0]);
+                }
+            }
+            else if(!Character.isDigit(split1[1].charAt(0)) && Character.isDigit(split2[1].charAt(0))){
+                return -1;
+            }
+            else if(Character.isDigit(split1[1].charAt(0)) && !Character.isDigit(split2[1].charAt(0))){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        });
+        return logs;
+    }
+}
+
