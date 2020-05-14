@@ -1,0 +1,20 @@
+class Solution {
+    public int[] advantageCount(int[] a, int[] b) {
+        TreeMap<Integer, Integer> m = new TreeMap<>();
+        
+        for(int i:a){
+            m.put(i, m.getOrDefault(i,0)+1);
+        }
+        int ans[] = new int[a.length];
+        for(int i=0;i<a.length;i++){
+            Integer temp = m.higherKey(b[i]);
+            if(temp==null){
+                temp = m.firstKey();
+            }
+            ans[i] = temp;
+            m.put(temp, m.get(temp)-1);
+            if(m.get(temp)==0) m.remove(temp);
+        }
+        return ans;
+    }
+}
