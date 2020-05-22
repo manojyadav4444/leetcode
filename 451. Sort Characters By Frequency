@@ -1,0 +1,18 @@
+class Solution {
+    public String frequencySort(String s) {
+        HashMap<Character, Integer> m = new HashMap<>();
+        for(char i : s.toCharArray()){
+            m.put(i, m.getOrDefault(i,0)+1);
+        }
+        PriorityQueue<Character> heap = new PriorityQueue<>((a,b)->m.get(b)-m.get(a));
+        heap.addAll(m.keySet());
+        StringBuilder ans = new StringBuilder();
+        while(!heap.isEmpty()){
+            char curr = heap.remove();
+            for(int i=0;i<m.get(curr);i++){
+                ans.append(curr);
+            }
+        }
+        return ans.toString();
+    }
+}
