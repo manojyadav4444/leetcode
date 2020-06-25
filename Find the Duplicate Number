@@ -1,0 +1,28 @@
+class Solution {
+    public int findDuplicate(int[] a) {
+        /*int t = n[0];
+        int h = n[0];
+        do{
+            t = n[t];
+            h = n[n[h]];
+        }while(t!=h);
+        
+        int ptr1 = n[0];
+        int ptr2 = t;
+        while(ptr1!=ptr2){
+            ptr1 = n[ptr1];
+            ptr2 = n[ptr2];
+        }
+        return ptr1;*/
+        int n = a.length;
+        for(int i=0;i<n;i++){
+            if(a[Math.abs(a[i])]>0){
+                a[Math.abs(a[i])] = -a[Math.abs(a[i])];
+            }
+            else{
+                return Math.abs(a[i]);
+            }
+        }
+        return 0;
+    }
+}
