@@ -1,0 +1,51 @@
+import java.util.*;
+
+class Solution{
+    public static void main(String dwa[]){
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int e = in.nextInt();
+        
+        
+        ArrayList<Integer>[] a = new ArrayList[n+1]; 
+        for (int i = 0; i < n+1; i++) { 
+            a[i] = new ArrayList<Integer>(); 
+        } 
+
+        for(int i=0;i<e;i++){
+            int x = in.nextInt();
+            int y = in.nextInt();
+            a[x].add(y);
+            a[y].add(x);
+        }
+        int q = in.nextInt();
+        while(q-->0){
+            int v[] = new int[n+1];
+            int dist[] = new int[n+1];
+            int dist_count[] = new int[n+1];
+            int node = in.nextInt();
+            int d = in.nextInt();
+            bfs(node,v,dist,dist_count,a);
+            System.out.println(dist_count[d]);
+        }
+        
+    }
+
+    public static void bfs(int node, int []v,          int []dist,int []dist_count, ArrayList<Integer>[] a)
+    {
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.add(node);
+        v[node] = 1;
+        while(!q.isEmpty()){
+            int top = q.remove();
+            for(int i : a[top]){
+                if(v[i]==0){
+                    q.add(i);
+                    v[i] = 1;
+                    dist[i] = dist[top] + 1;
+                    dist_count[dist[i]]++;
+                }
+            }
+        }   
+    }
+}
