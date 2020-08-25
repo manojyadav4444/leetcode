@@ -1,0 +1,76 @@
+import java.util.*;
+
+class Pair{
+    int first;
+    int second;
+    Pair(int i, int j){
+        first = i;
+        second = j;
+    }
+}
+
+class Solution{
+    public static void main (String []rd){
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        char [][]a = new char[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                a[i][j] = in.next().charAt(0);
+            }
+        }
+        int si=0,sj=0,ei=0,ej=0;
+        int [][]v = new int[n][n];
+        int [][]dist = new int[n][n];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(a[i][j]=='S'){
+                    si = i;
+                    sj = j;
+                }
+                if(a[i][j]=='E'){
+                    ei = i;
+                    ej = j;
+                }
+            }
+        }
+        bfs(si,sj,v,dist,a);
+        System.out.println(dist[ei][ej]);
+    }
+
+    public static void bfs(int si,int sj,int [][]v,int [][]dist,char [][]a){
+        int n = a.length;
+        Queue<Pair> q = new LinkedList<Pair>();
+        q.add(new Pair(si,sj));
+        while(!q.isEmpty()){
+            Pair top = q.remove();
+            int i = top.first;
+            int j = top.second;
+            if(isValid(i-1,j,n,a,v)){
+                q.add(new Pair(i-1,j));
+                v[i-1][j] = 1;
+                dist[i-1][j] = dist[i][j] + 1;
+            }
+            if(isValid(i,j-1,n,a,v)){
+                q.add(new Pair(i,j-1));
+                v[i][j-1] = 1;
+                dist[i][j-1] = dist[i][j] + 1;
+            }
+            if(isValid(i+1,j,n,a,v)){
+                q.add(new Pair(i+1,j));
+                v[i+1][j] = 1;
+                dist[i+1][j] = dist[i][j] + 1;
+            }
+            if(isValid(i,j+1,n,a,v)){
+                q.add(new Pair(i,j+1));
+                v[i][j+1] = 1;
+                dist[i][j+1] = dist[i][j] + 1;
+            }
+        }
+    }
+    public static boolean isValid(int i,int j,int n, char [][]a, int [][]v){
+        if(i<0 || i>=n || j<0 || j>=n || v[i][j]==1 || a[i][j]=='T') return false;
+        return true;   
+    }
+
+}
