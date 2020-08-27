@@ -1,0 +1,46 @@
+class Solution {
+    public boolean isBipartite(int[][] input) {
+        int n = input.length;
+        int m = input[0].length;
+        int v[] = new int[n];
+        int color[] = new int[n];
+        ArrayList<Integer>[] a = new ArrayList[n+1]; 
+        for (int i = 0; i < n+1; i++) { 
+            a[i] = new ArrayList<Integer>(); 
+        } 
+        for(int i=0;i<n;i++){
+            for(int j : input[i]){
+                a[i].add(j);
+                a[j].add(i);
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(v[i]==0){
+                if(!dfs(i,0,v,color,a)) return false;
+            }
+        }
+        return true;
+    }
+    public boolean dfs(int i,int c,int []v,int[] color,ArrayList<Integer>[] a){
+        color[i] = c;
+        v[i] = 1;
+        for(int x : a[i]){
+            if(v[x]==0){
+                if(!dfs(x,c^1,v,color,a)) return false;
+            }
+            else{
+                if(color[x]==color[i]) return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
