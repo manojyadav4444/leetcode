@@ -1,0 +1,67 @@
+class Solution {
+    class Pair{
+        int node;
+        int val;
+        Pair(int x, int y){
+            node = x;
+            val = y;
+        }
+    }
+    public int networkDelayTime(int[][] input, int n, int k) {
+        int v[] = new int[n+1];
+        int dist[] = new int[n+1];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+        ArrayList<Pair>[] a = new ArrayList[n+1]; 
+        for (int i = 0; i < n+1; i++) { 
+            a[i] = new ArrayList<Pair>(); 
+        }
+        for(int i=0;i<input.length;i++){
+            int src = input[i][0];
+            int des = input[i][1];
+            int w = input[i][2];
+            
+            a[src].add(new Pair(des,w));
+        }
+        bfs(k,0,v,dist,a);
+        int ans = 0;
+        for(int i=1;i<=n;i++){
+            if(dist[i]==Integer.MAX_VALUE) return -1;
+            ans = Math.max(ans,dist[i]);
+        }
+        return ans;
+    }
+    public void bfs(int i,int d,int []v,int []dist,ArrayList<Pair>[] a ){
+        Queue<Integer> q = new LinkedList<Integer>();
+        q.add(i);
+        v[i] = 1;
+        dist[i] = d;
+        while(!q.isEmpty()){
+            int top = q.remove();
+            for(Pair x : a[top]){
+                int root = x.node;
+                int wt = x.val;
+                int temp = dist[top] + wt;
+                if(temp<dist[root]){
+                    dist[root] = temp;
+                    q.add(root);
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
