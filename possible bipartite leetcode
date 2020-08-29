@@ -1,0 +1,50 @@
+class Solution {
+    public boolean possibleBipartition(int n, int[][] input) {
+        ArrayList<Integer>[] a = new ArrayList[n+1]; 
+        for (int i = 0; i < n+1; i++) { 
+            a[i] = new ArrayList<Integer>(); 
+        } 
+        for(int i=0;i<input.length;i++){
+            a[input[i][0]].add(input[i][1]);
+            a[input[i][1]].add(input[i][0]);
+        }
+        
+        for(int i=1;i<n+1;i++)
+        {
+            int []color = new int[n+1];
+            Arrays.fill(color,-1);
+            int v[] = new int[n+1];
+            if(!dfs(i,v,0,color,a)) return false;
+        }
+        return true;
+    }
+    public boolean dfs(int i,int []v,int c,int []color,ArrayList<Integer>[] a){
+        v[i] = 1;
+        color[i] = c;
+        for(int x : a[i]){
+            if(v[x]==0){
+                if(!dfs(x,v,c^1,color,a)) return false;
+            }
+            else{
+                if(color[x]==color[i]) return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
