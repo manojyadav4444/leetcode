@@ -1,0 +1,26 @@
+
+class Solution:
+    dic = {}
+	def editDistance(self, s, t):
+		# Code here
+		n = len(s)
+		m = len(t)
+		return (self.recur(s,t,0,0,n,m))
+		
+	def recur(self,s,t,i,j,n,m):
+		if i>=n:
+			return m-j
+		if j>=m:
+			return n-i
+		k = str(i)+" "+str(j)	
+# 		print(k)
+		if k in self.dic:
+		    return self.dic[k]
+		if s[i]==t[j]:
+			self.dic[k] = self.recur(s,t,i+1,j+1,n,m)
+			return self.dic[k]
+		else:
+			self.dic[k] = 1+min(self.recur(s,t,i+1,j+1,n,m),min(self.recur(s,t,i,j+1,n,m), self.recur(s,t,i+1,j,n,m)))
+			return self.dic[k]
+
+
